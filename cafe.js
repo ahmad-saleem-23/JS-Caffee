@@ -105,8 +105,8 @@ function generateCustomerOrder() {
 
   for (let i = 0; i <= orderSize; i++) {
     let productIndex = getRandomInt(0, productsNames.length - 1)
-    let productsName = productsNames[productIndex]
-    newOrder.push(productsName)
+    let productName = productsNames[productIndex]
+    newOrder.push(productName)
   }
 
   //  assign the new order to the customer object
@@ -114,16 +114,69 @@ function generateCustomerOrder() {
   customer.order = newOrder
 
   //  display customer order
+
   displayOrder()
 }
-
-generateCustomerOrder()
 
 function displayOrder() {
   document.getElementById('customerOrder').innerHTML =
     'Customer order: ' + customer.order
 }
 
+// linking to customer button
+
+document.getElementById('customerButton').onclick = generateCustomerOrder
+
+//  --- Transaction --- //
+
+let cash = 0
+
+function increasCash(amount) {
+  cash += amount
+}
+
+function displayCash() {
+  document.getElementById('cash').innerHTML = 'Cash: ' + cash
+}
+
+displayCash()
+
+function fillOrder() {
+  // make a variable to keep track of our sale total
+
+  let saleTotal = 0
+  cash = 0
+
+  // loop through the Customer Order array
+
+  for (i = 0; i < customer.order.length; i++) {
+    // if we have their products in stock, sell it to them, and keep track of the sale
+
+    let productName = customer.order[i]
+
+    if (Products[productName].stock > 0) {
+      Products[productName].stock--
+      saleTotal += Products[productName].price
+
+      // if we dont have it alert we're out of this product
+    } else {
+      alert("I'm sorry, we're out of: " + productName)
+    }
+  }
+
+  // add the sale totale to the cash
+  increasCash(saleTotal)
+
+  // clear customer order
+  customer.order = []
+
+  // display All
+  displayProducts()
+  displayCash()
+  displayOrder()
+}
+
+document.getElementById('fillOrder').onclick = fillOrder
 // --utility codes-- //
 
 function getRandomInt(min, max) {
