@@ -161,6 +161,7 @@ function fillOrder() {
       // if we dont have it alert we're out of this product
     } else {
       alert("I'm sorry, we're out of: " + productName)
+      document.getElementById(productName).style.color = 'red'
     }
   }
 
