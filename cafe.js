@@ -145,7 +145,9 @@ function fillOrder() {
   // make a variable to keep track of our sale total
 
   let saleTotal = 0
-  cash = 0
+
+  // we can reset the value of cash if we want to make a recipt for each individual sale (leave this for later challenges!!)
+  //cash = 0
 
   // loop through the Customer Order array
 
