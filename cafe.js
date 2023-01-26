@@ -115,6 +115,8 @@ function generateCustomerOrder() {
 
   //  display customer order
 
+  generateCusotmerMoney()
+
   displayOrder()
 }
 
@@ -146,6 +148,23 @@ function fillOrder() {
 
   let saleTotal = 0
 
+  // make variable to store the value of the order
+  let saleTotalC = 0
+
+  // check if customer has enough money before making any changes to the stock
+  // do a loop to fill the SaleTotal of the order
+  for (i = 0; i < customer.order.length; i++) {
+    let productName = customer.order[i]
+    if (Products[productName].stock > 0) {
+      saleTotalC += Products[productName].price
+    }
+  }
+  // check if customer has enough money before filling the order
+  if (customerMoney < saleTotalC) {
+    alert('Customer does not have enough money')
+    return
+  }
+
   // we can reset the value of cash if we want to make a recipt for each individual sale (leave this for later challenges!!)
   //cash = 0
 
@@ -167,25 +186,46 @@ function fillOrder() {
       // if we dont have it alert we're out of this product
     } else {
       alert("I'm sorry, we're out of: " + productName)
-
-      // document.getElementById(productName).style.color = 'red'
     }
   }
 
-  // add the sale totale to the cash
   increasCash(saleTotal)
-  // clear customer order
   customer.order = []
-
-  // display All
-
   displayProducts()
   displayCash()
   displayOrder()
+
+  /////// test ///////////
+  //   if (customerMoney >= saleTotal) {
+  //   // add the sale totale to the cash
+  //   increasCash(saleTotal)
+  //   // clear customer order
+  //   customer.order = []
+
+  //   // display All
+
+  //   displayProducts()
+  //   displayCash()
+  //   displayOrder()
+  // } else {
+  //   alert('need more money')
+
+  //   // displayOrder()
+  // }
 }
 
 document.getElementById('fillOrder').onclick = fillOrder
 
+//___________ customer money ___________________//
+
+// make a variable to store customer money
+
+let customerMoney = 0
+function generateCusotmerMoney() {
+  let maxMoney = 100
+  let minMoney = 1
+  customerMoney = getRandomInt(minMoney, maxMoney)
+}
 // --utility codes-- //
 
 function getRandomInt(min, max) {
