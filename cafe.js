@@ -158,28 +158,34 @@ function fillOrder() {
 
     if (Products[productName].stock > 0) {
       Products[productName].stock--
+      // change coloure when 0
+      if (Products[productName].stock == 0) {
+        document.getElementById(productName).style.color = 'red'
+      }
       saleTotal += Products[productName].price
 
       // if we dont have it alert we're out of this product
     } else {
       alert("I'm sorry, we're out of: " + productName)
-      document.getElementById(productName).style.color = 'red'
+
+      // document.getElementById(productName).style.color = 'red'
     }
   }
 
   // add the sale totale to the cash
   increasCash(saleTotal)
-
   // clear customer order
   customer.order = []
 
   // display All
+
   displayProducts()
   displayCash()
   displayOrder()
 }
 
 document.getElementById('fillOrder').onclick = fillOrder
+
 // --utility codes-- //
 
 function getRandomInt(min, max) {
