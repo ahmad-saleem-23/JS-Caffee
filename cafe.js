@@ -6,36 +6,43 @@ let Products = {
   coffee: {
     stock: 10,
     price: 4,
+    wholesaleCost: 3,
   },
 
   tea: {
     stock: 8,
     price: 3,
+    wholesaleCost: 2.5,
   },
 
   milkshake: {
     stock: 4,
     price: 8,
+    wholesaleCost: 6,
   },
 
   hotchocolate: {
     stock: 6,
     price: 6,
+    wholesaleCost: 3,
   },
 
   eggs: {
     stock: 7,
     price: 7.5,
+    wholesaleCost: 4.5,
   },
 
   salmon: {
     stock: 3,
     price: 15.3,
+    wholesaleCost: 10,
   },
 
   toast: {
     stock: 9,
     price: 10.2,
+    wholesaleCost: 5.5,
   },
 }
 
@@ -226,6 +233,43 @@ function generateCusotmerMoney() {
   let minMoney = 1
   customerMoney = getRandomInt(minMoney, maxMoney)
 }
+
+//________________________ restock _____________________//
+
+// creat an array of all the stock
+let restockList = Object.keys(Products)
+
+// we need to pass the function to all buttons so we put the getElement in a loop. first try was in the function"did not work".
+for (i = 0; i < restockList.length; i++) {
+  let stockName = restockList[i]
+
+  // we make an onclick and pass the function to the buttons
+  document.getElementById(stockName + '-restock').onclick = function () {
+    restock(stockName)
+  }
+}
+
+// function to restock.
+function restock(stockName) {
+  // condition for cash to be more than stock price
+  if (cash >= Products[stockName].wholesaleCost) {
+    //  add stock
+    Products[stockName].stock++
+    // decrase cash by wholesalecost
+    cash -= Products[stockName].wholesaleCost
+    // we need the stock to change back if it is in stock again
+    if (Products[stockName].stock != 0) {
+      document.getElementById(stockName).style.color = 'black'
+    }
+    // we need to display changes other wise it will happen in the background
+    displayProducts()
+    displayCash()
+  } else {
+    // Alert messege
+    alert('unable to restock, not enough cash')
+  }
+}
+
 // --utility codes-- //
 
 function getRandomInt(min, max) {

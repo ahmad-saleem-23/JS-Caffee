@@ -11,6 +11,8 @@ body {
 p {
 	font-size: 2vw;
 	font-weight: 400;
+  margin: 0;
+  display: inline-block;
 }
 
 h1 {
