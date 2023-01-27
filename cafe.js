@@ -31,6 +31,7 @@ let Products = {
     stock: 7,
     price: 7.5,
     wholesaleCost: 4.5,
+    cooked: ['fried', 'scrambled', 'poached', 'boiled'],
   },
 
   salmon: {
@@ -183,11 +184,24 @@ function fillOrder() {
     let productName = customer.order[i]
 
     if (Products[productName].stock > 0) {
+      // if egges, we need to spacify how it is cooked
+      if (Products[productName] == Products.eggs) {
+        let x = prompt(
+          'Please choose an option ' +
+            Products.eggs.cooked.join(' , or ') +
+            ': ',
+          Products.eggs.cooked.join(' or ')
+        )
+        x
+        alert(x + ' eggs has been ordered')
+      }
+
       Products[productName].stock--
       // change coloure when 0
       if (Products[productName].stock == 0) {
         document.getElementById(productName).style.color = 'red'
       }
+
       saleTotal += Products[productName].price
 
       // if we dont have it alert we're out of this product
