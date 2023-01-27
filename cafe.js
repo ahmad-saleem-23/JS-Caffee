@@ -159,6 +159,9 @@ function fillOrder() {
   // make variable to store the value of the order
   let saleTotalC = 0
 
+  // we define a variable to check the stock
+  let outOfStock = false
+
   // check if customer has enough money before making any changes to the stock
   // do a loop to fill the SaleTotal of the order
   for (i = 0; i < customer.order.length; i++) {
@@ -207,7 +210,21 @@ function fillOrder() {
       // if we dont have it alert we're out of this product
     } else {
       alert("I'm sorry, we're out of: " + productName)
+      // it will change its value only when we check for stock, not the moment the stock turn to 0.
+      outOfStock = true
     }
+  }
+  // if we make the loop here it will default to 0 even if all the order is filled.
+  // issue is the moment it read 0 in the stock it will not add up.
+  //   for (i = 0; i < customer.order.length; i++) {
+  //   let productName = customer.order[i]
+  //   if (Products[productName].stock == 0) {
+  //     outOfStock = true
+  //   }
+  // }
+  // here we reassign the totalSale to 0 so nothing would add to cash.
+  if (outOfStock) {
+    saleTotal = 0
   }
 
   increasCash(saleTotal)
